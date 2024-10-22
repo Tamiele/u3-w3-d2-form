@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
+  FormControl,
   FormGroup,
   ValidationErrors,
   ValidatorFn,
@@ -31,7 +32,7 @@ export class RegistrazioneComponent implements OnInit {
         biografia: ['', Validators.required],
         userName: ['', Validators.required],
       },
-      { validators: this.passwordMatchValidator() }
+      { validators: this.passwordMatchValidator }
     );
   }
 
@@ -51,21 +52,31 @@ export class RegistrazioneComponent implements OnInit {
     return !this.isValid(fieldName) && this.isTouched(fieldName);
   }
 
-  passwordMatchValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const password = control.get('password');
-      const confermaPassword = control.get('confermaPassword');
+  // passwordMatchValidator(): ValidatorFn {
+  //   return (control: AbstractControl): ValidationErrors | null => {
+  //     const password = control.get('password')?.value;
+  //     const confermaPassword = control.get('confermaPassword')?.value;
 
-      if (
-        password &&
-        confermaPassword &&
-        password.value !== confermaPassword.value
-      ) {
-        return { passwordsMismatch: true };
-      }
-      return null;
-    };
-  }
+  //     // Verifica che entrambe le password esistano e che siano diverse
+  //     if (password && confermaPassword && password !== confermaPassword) {
+  //       return { passwordsMismatch: true }; // Le password non corrispondono
+  //     }
+
+  //     return null; // Le password corrispondono
+  //   };
+  // }
+
+  passwordMatchValidator = (control: FormControl): ValidationErrors | null => {
+    const password = control.get('password')?.value;
+    const confermaPassword = control.get('confermaPassword')?.value;
+
+    // Verifica che entrambe le password esistano e che siano diverse
+    if (password && confermaPassword && password !== confermaPassword) {
+      return { passwordsMismatch: true }; // Le password non corrispondono
+    }
+
+    return null; // Le password corrispondono
+  };
 
   isPasswordMismatch() {
     return (
