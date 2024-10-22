@@ -1,0 +1,29 @@
+<form class="container mt-5" (ngSubmit)="submit(form)" #form="ngForm">
+  <div class="ms-3 mb-3 form-group">
+    <label class="form-label">UserName</label>
+    <input
+      name="UserName"
+      ngModel
+      required
+      type="text"
+      class="form-control"
+      #name="ngModel"
+    />
+  </div>
+  <div class="ms-3 mb-3 form-group">
+    <label for="exampleInputPassword1" class="form-label">Password</label>
+    <input
+      name="Password"
+      ngModel
+      required
+      type="password"
+      class="form-control"
+      id="exampleInputPassword1"
+      #password="ngModel"
+    />
+  </div>
+
+  <button [disabled]="form.invalid" type="submit" class="btn btn-primary ms-3">
+    Submit
+  </button>
+</form>

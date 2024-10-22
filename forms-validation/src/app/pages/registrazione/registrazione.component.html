@@ -1,0 +1,66 @@
+<form class="container mt-5" [formGroup]="form">
+  <div class="ms-3 mb-3 form-group">
+    <label class="form-label">Name</label>
+    <input formControlName="nome" type="text" class="form-control" />
+    <span *ngIf="isInValidTouched('nome')">Campo Obbligatorio</span>
+  </div>
+  <div class="ms-3 mb-3 form-group">
+    <label class="form-label">Cognome</label>
+    <input formControlName="cognome" type="text" class="form-control" />
+    <span *ngIf="isInValidTouched('nome')">Campo Obbligatorio</span>
+  </div>
+
+  <div class="ms-3 mb-3 form-group">
+    <label for="exampleInputPassword1" class="form-label">Password</label>
+    <input
+      formControlName="password"
+      type="password"
+      class="form-control"
+      id="exampleInputPassword1"
+    />
+  </div>
+  <div class="ms-3 mb-3 form-group">
+    <label class="form-label">Conferma Password</label>
+    <input
+      formControlName="confermaPassword"
+      type="password"
+      class="form-control"
+    />
+    <span *ngIf="isPasswordMismatch()">Password non coincidono</span>
+  </div>
+  <div class="form-check">
+    <div *ngFor="let genere of generi">
+      <label class="form-chech-label" [for]="genere">{{ genere }}</label>
+      <input
+        formControlName="genere"
+        type="radio"
+        [id]="genere"
+        [value]="genere"
+        class="form-check-input"
+      />
+    </div>
+  </div>
+  <div class="ms-3 mb-3 form-group">
+    <label class="form-label">Immagine Profilo</label>
+    <input formControlName="immagineProfilo" type="file" class="form-control" />
+  </div>
+  <div class="ms-3 mb-3 form-group">
+    <label class="form-label">Biografia</label>
+    <textarea formControlName="biografia" class="form-control"></textarea>
+    <span *ngIf="isInValidTouched('nome')">Campo Obbligatorio</span>
+  </div>
+  <div class="ms-3 mb-3 form-group">
+    <label class="form-label">UserName</label>
+    <input formControlName="userName" type="text" class="form-control" />
+    <span *ngIf="isInValidTouched('nome')">Campo Obbligatorio</span>
+  </div>
+
+  <button
+    [disabled]="form.invalid"
+    (click)="send()"
+    type="submit"
+    class="btn btn-primary ms-3"
+  >
+    Submit
+  </button>
+</form>
